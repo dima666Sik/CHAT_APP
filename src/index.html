@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="div__signin">
+        <form class="form__chat" method="post">
+            <h2>Sign In</h2>
+            <p><label for="user_login">User name<br>
+                    <input class="input" id="username" name="username" size="20" type="text" placeholder="Name"></label>
+            </p>
+            <p><label for="user_pass">Password<br>
+                    <input class="input" id="password" name="password" size="20" type="password"
+                        placeholder="Password"></label></p>
+            <input type="button" value="Log In" id="send-submit" onclick="isClickAuto()">
+            <p class="regtext">Not registration? <a href="registration.html">Registration</a>!</p>
+        </form>
+    </div>
+    <script>
+        function isClickAuto() {
+
+            const userName = document.getElementById('username').value;        
+            const password = document.getElementById('password').value;        
+
+            let formData = new FormData(document.forms.form__chat);
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("GET", "https://studentschat.herokuapp.com/users");
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.responseType = 'json';
+
+            xhr.onload = () => {
+                let flag = false;
+                let count = 0;
+                if (xhr.status >= 400) {
+                    alert("status>400")
+                } else {
+                    for (let i = 0; i < xhr.response.length; i++) {
+                        if (xhr.response[i].username == userName && xhr.response[i].password == password) {
+                            flag = true;
+                            break;
+                        } else {
+                            count++;
+                        }
+                    }
+                    if (flag) {
+                        document.location.href = "home.html";
+                    } else {
+                        alert("Такого пользователя не существует!!!");
+                    }
+                }
+            }
+            xhr.onerror = () => alert("Error!");
+
+            xhr.send();
+        }
+    </script>
+</body>
+
+</html>

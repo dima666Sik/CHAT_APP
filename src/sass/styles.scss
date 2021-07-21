@@ -1,0 +1,188 @@
+*{
+  margin: 0;
+  color: rgb(235, 235, 235);
+  font-family: 'Noto Sans JP', sans-serif;
+}
+body{
+  background: url(../images/bg-body.jpeg) no-repeat;
+  background-size: cover; 
+  background-position: center;
+}
+/* HEADER */
+.header{
+  background: rgba(50, 50, 50, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border: 2px solid red; */
+  margin: 1.5%;
+  border:3px solid #fff;
+}
+.div__edit__time{
+  /* border: 2px solid red; */
+  margin: 1.5%;
+}
+.div__time{
+  padding-bottom: 5%;
+}
+.div__edit{
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+.div__edit a{
+  /* border: 2px solid red; */
+  text-decoration: underline;
+}
+.logo{
+  margin: 1.5%;
+  /* border: 2px solid red; */
+  width: 30%;
+  height: 30%;
+}
+.div__btn{
+  margin-top: 15%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.div__btn__{
+  margin-top: 15%;
+}
+.btn__header{
+  text-decoration: none;
+  font-size: 16px;
+  padding: 5% 25%;
+  border:1px solid #fff;
+  background:rgba(50, 50, 50, 0.6);
+  border-radius: 0.2rem;
+}
+/* div__main */
+.div__main{
+  /* border: 2px solid red; */
+  margin: 1.5%;
+  display: flex;
+  justify-content: space-between;
+}
+#div__users__chat__online{
+  background: rgba(50, 50, 50, 0.6);
+  /* border: 2px solid red; */
+  margin: 2% 1.5% 1.5% 0;
+  display: inline-block;
+  width: 25%;
+  border:3px solid #fff;
+  height: 100vh;
+  overflow-y: scroll;
+    // width: 30%;
+}
+
+#div__users__chat{
+  background: rgba(255, 178, 35, 0.2);
+  /* border: 2px solid red; */
+  margin: 5%;
+}
+.p__tabs{
+  /* border: 2px solid red; */
+  border:3px solid #fff;
+  border-bottom: none;
+  display: inline-block;
+  width: 15%;
+  text-align: center;
+}
+.div__chat{
+  /* border: 2px solid red; */
+  display: inline-block;
+  margin: 0.5% 0 1.5% 0;
+}
+.nick__name{
+  display: inline-block;
+  text-decoration: underline;
+  line-height: 2;
+}
+.div__chat_m p{
+  display: contents;
+}
+.div__chat_m{
+  border:3px solid #fff;
+  background: rgba(33, 165, 28, 0.2);
+  /* border: 2px solid red; */
+  padding: 1.5%;
+  padding-bottom: 30%;
+}
+.div__enter__message{
+  outline:none;
+  border:3px solid #fff;
+  border-top: none;
+  border-left: none;
+  background: rgba(33, 165, 28, 0.2);
+  /* border: 2px solid red; */
+  margin: 1.5% 0 0;
+  padding: 1.5%;
+  padding-bottom: 5%;
+  width: 96.5%;
+}
+.buttons{
+  text-align: center;
+}
+.button__message{
+  border:1px solid rgba(228, 228, 228, 0.6);
+  background:rgba(50, 50, 50, 0.6);
+  border-radius: 0.2rem;
+}
+/* FOOTER */
+.footer{
+  border:3px solid #fff;
+  background:rgba(50, 50, 50, 0.6);
+  /* border:2px solid red; */
+  margin: 1.5%;
+}
+.footer h4{
+  text-align: center;
+  padding-bottom: 0.5%;
+  padding-top: 0.5%;
+}
+.div__f__p{
+  text-align: center;
+}
+/* signin */
+.div__signin{
+  margin-top: 15%;
+  margin-bottom: 15%;
+  text-align: center;
+}
+.div__signin input{
+color: #000;
+border: none;
+border-radius:5px;
+padding: 2%;
+}
+.form__chat{
+  border:1px solid #fff;
+  border-radius: 15px;
+  display: inline-block;
+  padding: 0 3% 3%;
+  background: rgba(50, 50, 50, 0.6) no-repeat;
+  background-size: cover; 
+  background-position: center;
+}
+.form__chat p{
+  /* border:1px solid #fff; */
+  margin-bottom: 5%;
+  text-align: center;
+}
+.form__chat h2{
+  padding-bottom: 10%;
+  padding-top: 5%;
+}
+.regtext{
+  padding-top: 15%;
+}
+.submit{
+  text-decoration: none;
+  font-size: 16px;
+  padding: 2% 15%;
+  border:1px solid #fff;
+  background:rgba(50, 50, 50, 0.6);
+  border-radius: 0.2rem;
+  text-align: center;
+}
+/* registration */
