@@ -10,7 +10,8 @@ body{
 }
 /* HEADER */
 .header{
-  background: rgba(50, 50, 50, 0.6);
+  // background: rgba(50, 50, 50, 0.6);
+  background:url(../images/wtf.jpg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,8 +22,16 @@ body{
 .div__edit__time{
   /* border: 2px solid red; */
   margin: 1.5%;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
 }
-.div__time{
+.info{
+  margin: inherit;
+}
+#div__time{
+  // font-size: 20px;
   padding-bottom: 5%;
 }
 .div__edit{
@@ -41,7 +50,7 @@ body{
   height: 30%;
 }
 .div__btn{
-  margin-top: 15%;
+  // margin-top: 15%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -62,23 +71,35 @@ body{
   margin: 1.5%;
   display: flex;
   justify-content: space-between;
+  // height: 80vh;
 }
 #div__users__chat__online{
-  background: rgba(50, 50, 50, 0.6);
+  // background: rgba(50, 50, 50, 0.6);
+  background:url(../images/wtf.jpg);
   /* border: 2px solid red; */
   margin: 2% 1.5% 1.5% 0;
   display: inline-block;
   width: 25%;
   border:3px solid #fff;
-  height: 100vh;
-  overflow-y: scroll;
+  // height: 100vh;
+  // overflow-y: auto;
+  width: 40vh;
     // width: 30%;
 }
 
 #div__users__chat{
-  background: rgba(255, 178, 35, 0.2);
-  /* border: 2px solid red; */
+  // background: rgba(255, 178, 35, 0.2);
+  background:rgba(214, 96, 0, 0.3);
+  border: 1px solid rgba(148, 121, 71, 0.3); 
+  // border:none;
+  border-radius:8px;
   margin: 5%;
+  //
+  height: 84vh;
+  overflow-y: auto;
+}
+.div__scroll_class{
+  margin-right: inherit;
 }
 .p__tabs{
   /* border: 2px solid red; */
@@ -92,6 +113,8 @@ body{
   /* border: 2px solid red; */
   display: inline-block;
   margin: 0.5% 0 1.5% 0;
+  // width: 165vh;
+  width: -webkit-fill-available;
 }
 .nick__name{
   display: inline-block;
@@ -103,17 +126,29 @@ body{
 }
 .div__chat_m{
   border:3px solid #fff;
-  background: rgba(33, 165, 28, 0.2);
+  background: rgba(0, 174, 197, 0.2);
+  // background:url(../images/wtf.jpg);
   /* border: 2px solid red; */
   padding: 1.5%;
-  padding-bottom: 30%;
+  // padding-bottom: 30%;
+  overflow-y: auto;
+  // height: 25vh;
+  height: 65vh;
+}
+#div__scroll__message{
+  display: block;
+
+  // position:relative;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: baseline;
 }
 .div__enter__message{
   outline:none;
   border:3px solid #fff;
   border-top: none;
   border-left: none;
-  background: rgba(33, 165, 28, 0.2);
+  background: rgba(0, 174, 197, 0.2);
   /* border: 2px solid red; */
   margin: 1.5% 0 0;
   padding: 1.5%;
@@ -131,7 +166,8 @@ body{
 /* FOOTER */
 .footer{
   border:3px solid #fff;
-  background:rgba(50, 50, 50, 0.6);
+  // background:rgba(214, 96, 0, 0.6);
+  background:url(../images/wtf.jpg);
   /* border:2px solid red; */
   margin: 1.5%;
 }
