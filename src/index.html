@@ -27,6 +27,7 @@
 
             const userName = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            var dateStartSession = new Date();
             let formData = new FormData(document.forms.form__chat);
             let xhr = new XMLHttpRequest();
             let id_user = '';
@@ -49,6 +50,7 @@
                             id_user = xhr.response[i].user_id;
                             document.cookie = "id_user=" + id_user + "; expires=" + date;
                             document.cookie = "user=" + xhr.response[i].username + "; expires=" + date;
+                            document.cookie = "date=" + dateStartSession + "; expires=" + date;
                             // alert(id_user);
                             break;
                         } else {

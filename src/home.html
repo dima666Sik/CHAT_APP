@@ -17,8 +17,6 @@
         <div class="div__edit__time">
             <div class="info">
                 <div id="div__time">
-                    <p>You are online for: 1h 30m</p>
-                    <!-- <p>Your local time is: 10:45</p> -->
                 </div>
                 <div class="div__edit">
                     <a href="#"><strong>Edit personal info</strong></a>
@@ -84,6 +82,12 @@
         // alert(document.cookie);
         let id = get_cookie("id_user");
         let user = get_cookie("user");
+        let dateStartSession = new Date(get_cookie("date"));
+        // function statusOk() {
+        //     if (user != undefined && user != null) {
+
+        //     }
+        // }
 
         function usersInChat(method, url) {
             let xhr = new XMLHttpRequest();
@@ -98,7 +102,7 @@
                 } else {
                     let countOnline = 0, allUsers = 0;
                     for (let i = 0; i < xhr.response.length; i++) {
-
+                       let idAvatar = xhr.response[i].avatarId;
                         if (user == null && id == null) {
                             document.cookie = "id_user=;max-age=-1";
                             document.location.href = "index.html";
@@ -110,13 +114,19 @@
                             let divRed = document.createElement('div');
                             divRed.innerHTML = '.';
                             divRed.style.width = '10%';
-                            // divRed.style.height = '5%';
+                            divRed.style.height = '5%';
                             divRed.style.border = '2px solid #fff';
                             divRed.style.borderRadius = '50%';
                             divRed.style.background = 'green';
                             divRed.style.color = 'green';
                             divRed.style.display = 'inline-block';
                             div__users__chat.append(divRed);
+                            
+                            // отображаем аватар пользователя
+                            // let img = document.createElement('img');
+                            // img.src = `D://Andersen/CHAT_APP/src/images/01.svg`;
+
+                            // div__users__chat.append(img);
                             countOnline++;
                         } else {
                             let divRed = document.createElement('div');
@@ -187,6 +197,18 @@
 
             div__time.append(divTime);
 
+
+            let hour = date.getHours() - dateStartSession.getHours();
+            let minutes = date.getMinutes() - dateStartSession.getMinutes();
+            let days = date.getDay() - date.getDay();
+            let diff = days + "d " + hour + "h " + minutes + "m";
+
+            let divDiff = document.createElement('p');
+            divDiff.innerHTML = "You are online for: " + diff;
+
+            div__time.prepend(divDiff);
+            // alert(diff);
+
         }
 
         function isSendMess() {
@@ -221,35 +243,14 @@
         }
 
         function isClickExit() {
-            // let xhr1 = new XMLHttpRequest();
-            // xhr1.open("GET", "https://studentschat.herokuapp.com/users");
-            // xhr1.setRequestHeader('Content-Type', 'application/json');
-            // xhr1.responseType = 'json';
-            // let flag = false;
+            let xhr = new XMLHttpRequest();
 
-            // xhr1.send();
+            xhr.open("POST", "https://studentschat.herokuapp.com/users/logout");
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            alert(user);
+            xhr.send(JSON.stringify({ username: user }));
 
-            // xhr1.onload = () => {
-            //     if (xhr1.status >= 400) {
-            //         alert("status>400")
-            //     } else {
-            //         for (let i = 0; i < xhr1.response.length; i++) {
-            //             alert("you L6");
-            //             if ("id_user=" + xhr1.response[i].user_id == id[0]) {
-            //                 flag = true;
-            //                 alert(flag);
-            //                 break;
-            //             }
-            //         }
-            //     }
-            // }
-            // if (flag) {
-            //     xhr.onreadystatechange = function () {
-            //         const data = JSON.parse(this.responseText); 
-            //         document.getElementById("demo").innerHTML = "Телефон пользователя: " + data.phone;
-
-            //     };
-            // }
+            xhr.onload = () => alert(xhr.response);
 
             //стираем куки
             document.cookie = "id_user=;max-age=-1";
@@ -295,6 +296,7 @@
                             divMessageMe.style.marginLeft = 'auto';
                             divMessageMe.style.marginBottom = '2%';
                             divMessageMe.style.padding = '2%';
+                            divMessageMe.style.wordBreak = "break-all";
                             divMessageMe.style.borderRadius = '15px 15px 0 15px';
                             divMessageMe.style.background = 'rgba(0, 0, 0, 0.4)';
 
@@ -323,6 +325,7 @@
                             divMessageAll.style.marginBottom = '2%';
                             divMessageAll.style.borderRadius = '15px 15px 15px 0';
                             divMessageAll.style.padding = '2%';
+                            divMessageAll.style.wordBreak = "break-all";
                             divMessageAll.style.background = 'rgba(214, 96, 0, 0.4)';
 
                             div__scroll__message.append(divMessageAll);
@@ -357,6 +360,9 @@
         usersInChat("GET", "https://studentschat.herokuapp.com/users");
         isShowMessage("GET", "https://studentschat.herokuapp.com/messages");
         isShowCurrentDate();
+
+
+        // statusOk();
     </script>
 </body>
 
