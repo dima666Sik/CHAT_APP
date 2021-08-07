@@ -2,74 +2,79 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Uchen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
+    <!-- <script src="js/index__logic.js"></script> -->
 </head>
 
 <body>
-    <div class="div__signin">
-        <form class="form__chat" method="post">
-            <h2>Sign In</h2>
-            <p><label for="user_login">User name<br>
-                    <input class="input" id="username" name="username" size="20" type="text" placeholder="Name"></label>
-            </p>
-            <p><label for="user_pass">Password<br>
-                    <input class="input" id="password" name="password" size="20" type="password"
-                        placeholder="Password"></label></p>
-            <input type="button" value="Log In" id="send-submit" onclick="isClickAuto()">
-            <p class="regtext">Not registration? <a href="registration.html">Registration</a>!</p>
-        </form>
+    <header class="header">
+        <img class="logo" src="images/logo.png" alt="logo">
+        <div class="div__edit__time">
+            <div class="info">
+                <div id="div__time">
+                </div>
+                <div class="div__edit">
+                    <a href="#"><strong>Edit personal info</strong></a>
+                    <a href="#"><strong>Private messages</strong></a>
+                </div>
+            </div>
+            <div class="div__btn">
+                <a href="login.html" class="btn__header" style="margin-bottom: 10%;">Login</a>
+                <a href="registration.html" class="btn__header" style="margin-bottom: 10%;">Registration</a>
+                <a href="login.html" class="btn__exit" >Exit</a>
+            </div>
+        </div>
+        </div>
+    </header>
+    <div class="div__main">
+        <div class="div__scroll_class">
+            <div id="div__users__chat__online">
+                <div id="div__users__chat">
+                </div>
+            </div>
+        </div>
+        <div class="div__chat">
+            <div class="div__tabs">
+                <p class="p__tabs" style="background: rgba(0, 174, 197, 0.2);">Main chat</p>
+                <!-- <p class="p__tabs" style="background: rgba(50, 50, 50, 0.6);">Chat with Alison</p> -->
+            </div>
+            <div class="div__chat_m">
+                <div class="users">
+                    <div id="div__scroll__message"></div>
+                </div>
+            </div>
+            <input class="div__enter__message" type="text" id="messages" name="messages"
+                placeholder="Write a message...">
+            <div class="buttons">
+                <button class="button__message">B</button>
+                <button class="button__message">I</button>
+                <button class="button__message">U</button>
+                <button class="button__message" style="margin-left: 2%;">Link</button>
+                <button class="button__send__message"
+                    style="float: right; margin-top: 1%;width: 15%; text-transform: uppercase;">Send message</button>
+            </div>
+        </div>
     </div>
-    <script>
-        function isClickAuto() {
-
-            const userName = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            var dateStartSession = new Date();
-            let formData = new FormData(document.forms.form__chat);
-            let xhr = new XMLHttpRequest();
-            let id_user = '';
-            xhr.open("GET", "https://studentschat.herokuapp.com/users");
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.responseType = 'json';
-
-            xhr.onload = () => {
-                let flag = false;
-                let count = 0;
-                if (xhr.status >= 400) {
-                    alert("status>400")
-                } else {
-                    // alert(xhr.response.length);
-                    for (let i = 0; i < xhr.response.length; i++) {
-                        if (xhr.response[i].username == userName && xhr.response[i].password == password) {
-                            flag = true;
-                            let date = new Date(Date.now() + 86400e3);
-                            date = date.toUTCString();
-                            id_user = xhr.response[i].user_id;
-                            document.cookie = "id_user=" + id_user + "; expires=" + date;
-                            document.cookie = "user=" + xhr.response[i].username + "; expires=" + date;
-                            document.cookie = "date=" + dateStartSession + "; expires=" + date;
-                            // alert(id_user);
-                            break;
-                        } else {
-                            count++;
-                        }
-                    }
-                    if (flag) {
-                        document.location.href = "home.html";
-                    } else {
-                        alert("Такого пользователя не существует!!!");
-                    }
-                }
-            }
-
-            xhr.onerror = () => alert("Error!");
-
-            xhr.send();
-        }
-    </script>
+    <footer class="footer">
+        <h4>Widget for displaying information about the entered
+            message</h4>
+        <div class="div__f__p">
+            <p>31 characters entered;</p>
+            <p>25 letters endered;</p>
+            <p>4 whitespace characters entered;</p>
+            <p>2 punctuation marks entered.</p>
+            <p><strong>Have a nice day ;D</strong></p>
+    </footer>
+    <!-- <script> -->
+        
+       
+    <!-- </script> -->
 </body>
 
 </html>

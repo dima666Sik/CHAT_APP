@@ -15,26 +15,75 @@
             <p><label for="user_login">Enter your user name<br>
                     <input class="input" id="username" name="username" size="20" type="text" placeholder="Name"></label>
             </p>
+            <!-- <p><label for="user_check_male_female">Choose your gender<br>
+                    <input type="checkbox" id="check_gender_male"> Male
+                    <input type="checkbox" id="check_gender_female"> Female
+                </label>
+            </p> -->
             <p><label for="user_pass">Create password<br>
                     <input class="input" id="password" name="password" size="20" type="password"
                         placeholder="Password"></label></p>
             <input type="button" value="Registration" id="send-submit" onclick="isClickReg()">
-            <p class="regtext">You have been registered? <a href="index.html">Sign In</a>!</p>
+            <p class="regtext">You have been registered? <a href="login.html">Sign In</a>!</p>
+            <div id="succesfull"></div>
         </form>
     </div>
     <script>
         function isClickReg() {
-            const userName = document.getElementById('username').value;        
-            const password = document.getElementById('password').value;        
-            let formData = new FormData(document.forms.form__chat);
-            let xhr = new XMLHttpRequest();
+            // let chboxMale = document.getElementById('check_gender_male');
+            // let resultM = chboxMale.checked;
+            // let chboxFemale = document.getElementById('check_gender_female');
+            // let resultF = chboxFemale.checked;
+            // if (resultM == true && resultF == true) {
+            //     let div = document.createElement('div');
 
-            xhr.open("POST", "https://studentschat.herokuapp.com/users/register");
-            xhr.setRequestHeader('Content-Type', 'application/json');
+            //     div.innerHTML = 'Register wasn`t succesfull. Please choice one gender!';
+            //     div.style.wordBreak = "break-all";
+            //     div.style.border = '2px solid red';
+            //     div.style.borderRadius = '2%';
+            //     div.style.color = 'red';
+            //     succesfull.append(div);
+            //     return;
+            // }
+            // else if (resultM != true && resultF != true) {
+            //     let div = document.createElement('div');
 
-            xhr.send(JSON.stringify({ username: userName, password: password}));
+            //     div.innerHTML = 'Register wasn`t succesfull. You don`t choice gender. Please choice one gender!';
+            //     div.style.wordBreak = "break-all";
+            //     div.style.border = '2px solid red';
+            //     div.style.borderRadius = '2%';
+            //     div.style.color = 'red';
+            //     succesfull.append(div);
+            //     return;
+            // }
+            // else {
+                const userName = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                // var dateStartSession = new Date();
+                // let date = new Date(Date.now() + 86400e3);
+                // date = date.toUTCString();
 
-            xhr.onload = () => alert(xhr.response);
+                // const gender = resultM ? 'male' : 'female';
+                // document.cookie = "gender=" + gender + "; expires=" + date;
+                // alert(gender);
+                let formData = new FormData(document.forms.form__chat);
+                let xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "https://studentschat.herokuapp.com/users/register");
+                xhr.setRequestHeader('Content-Type', 'application/json');
+
+                xhr.send(JSON.stringify({ username: userName, password: password }));
+
+                xhr.onload = () => alert(xhr.response);
+                //если юзера небыло и был успешено создан
+                // let div = document.createElement('div');
+
+                // div.innerHTML = 'Register was succesfull';
+                // div.style.border = '2px solid red';
+                // div.style.borderRadius = '50%';
+                // div.style.color = 'red';
+                // succesfull.append(div);
+            // }
         }
     </script>
 </body>
