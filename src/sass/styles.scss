@@ -143,6 +143,9 @@ body{
   // flex-direction: column;
   // align-items: baseline;
 }
+.bold {font-weight:bold; }
+.italic { font-style: italic; }
+.underline { text-decoration: underline; }
 .div__enter__message{
   outline:none;
   border:3px solid #fff;
@@ -158,7 +161,7 @@ body{
 .buttons{
   text-align: center;
 }
-.button__message, .button__send__message{
+.button__message, .button__send__message, .button__message__bold, .button__message__italic, .button__message__underline{
   border:1px solid rgba(228, 228, 228, 0.6);
   background:rgba(50, 50, 50, 0.6);
   border-radius: 0.2rem;
@@ -176,7 +179,7 @@ body{
   padding-bottom: 0.5%;
   padding-top: 0.5%;
 }
-.div__f__p{
+#div__f__p{
   text-align: center;
 }
 /* signin */

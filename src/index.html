@@ -50,11 +50,11 @@
                 </div>
             </div>
             <input class="div__enter__message" type="text" id="messages" name="messages"
-                placeholder="Write a message...">
+                placeholder="Write a message..." value="">
             <div class="buttons">
-                <button class="button__message">B</button>
-                <button class="button__message">I</button>
-                <button class="button__message">U</button>
+                <button class="button__message__bold">B</button>
+                <button class="button__message__italic">I</button>
+                <button class="button__message__underline">U</button>
                 <button class="button__message" style="margin-left: 2%;">Link</button>
                 <button class="button__send__message"
                     style="float: right; margin-top: 1%;width: 15%; text-transform: uppercase;">Send message</button>
@@ -64,11 +64,11 @@
     <footer class="footer">
         <h4>Widget for displaying information about the entered
             message</h4>
-        <div class="div__f__p">
-            <p>31 characters entered;</p>
-            <p>25 letters endered;</p>
-            <p>4 whitespace characters entered;</p>
-            <p>2 punctuation marks entered.</p>
+        <div id="div__f__p">
+            <p class="characters__entered">0 characters entered;</p>
+            <p class="letters__endered">0 letters endered;</p>
+            <p class="whitespace__characters">0 whitespace characters entered;</p>
+            <p class="punctuation__marks">0 punctuation marks entered.</p>
             <p><strong>Have a nice day ;D</strong></p>
     </footer>
     <!-- <script> -->

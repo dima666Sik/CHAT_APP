@@ -5,8 +5,19 @@ import './../sass/styles.scss';
 import avatars from '../js/connect__avatars.js';
 
 if (document.location.pathname == '/index.html') {
+    const divWindowUsers = document.querySelector('.users');;
+    const divChats = document.querySelector('.div__tabs');;
+    const countCE = document.querySelector('.characters__entered');;
+    const countLE = document.querySelector('.letters__endered');;
+    const countWC = document.querySelector('.whitespace__characters');;
+    const countPM = document.querySelector('.punctuation__marks');;
     const clickExit = document.querySelector('.btn__exit');
     const clickSendMessage = document.querySelector('.button__send__message');
+    const fieldMessage = document.getElementById("messages");
+    const clickBoldText = document.querySelector('.button__message__bold');
+    const clickItalicText = document.querySelector('.button__message__italic');
+    const clickUnderlineText = document.querySelector('.button__message__underline');
+    let text_style = '';
     function get_cookie(cookie_name) {
         let results = document.cookie.match('(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
         if (results)
@@ -26,23 +37,32 @@ if (document.location.pathname == '/index.html') {
 
     //     }
     // }
-    // let countUsers = 0;
+    const mapUsers = new Map();
+    mapUsers.set("start", 0);
+    mapUsers.set("allUsers", 0);
+    mapUsers.set("startCountOnline", 0);
+    mapUsers.set("flagTime", 0);
+    // var fl = 0;
     function usersInChat(method, url) {
-        let xhr = new XMLHttpRequest();
 
+        let xhr = new XMLHttpRequest();
         xhr.open(method, url);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.responseType = 'json';
         let flagCheck = false;
-        xhr.onload = () => {
+        xhr.onload = function () {
             if (xhr.status >= 400) {
                 alert("status>400")
             } else {
-                let countOnline = 0, allUsers = 0;
-                for (let i = 0; i < xhr.response.length; i++) {
+                let countOnline = 0;
+                // alert("lenght = " + xhr.response.length);
+                // alert(" mapUsers.get('startCountOnline') = " + mapUsers.get("startCountOnline"));
+                // alert(" mapUsers.get('countOnline') = " + mapUsers.get("countOnline"));
+                for (let i = mapUsers.get("start"); i < xhr.response.length; i++) {
                     let idAvatar = (xhr.response[i].avatarId != undefined) ? xhr.response[i].avatarId : "guest";
                     mapAvatars.set(xhr.response[i].username, idAvatar);
                     let block = document.createElement('div');
+                    block.className = `clickOnUser`;
                     block.style.border = "1px solid #fff";
                     block.style.padding = '2%';
                     block.style.margin = '2%';
@@ -71,13 +91,13 @@ if (document.location.pathname == '/index.html') {
                         document.cookie = "id_user=;max-age=-1";
                         document.location.href = "login.html";
                     }
-                    // if (user == undefined && id == undefined) {
-                    //     document.cookie = "id_user=;max-age=-1";
-                    //     document.location.href = "login.html";
-                    // }
-                    if (xhr.response[i].username == user && xhr.response[i].user_id == id) {
-                        flagCheck = true;
+                    if (user == undefined && id == undefined) {
+                        document.cookie = "id_user=;max-age=-1";
+                        document.location.href = "login.html";
                     }
+                    // if (xhr.response[i].username == user && xhr.response[i].user_id == id) {
+                    //     flagCheck = true;
+                    // }
                     if (xhr.response[i].status == "active") {
                         let divGreen = document.createElement('img');
                         divGreen.src = avatars["green__point"];
@@ -97,8 +117,10 @@ if (document.location.pathname == '/index.html') {
                         divRed.style.width = '4%';
                         blockAvatar.append(divRed);
                     }
+
                     let pLast = document.createElement('div');
                     pLast.innerHTML = xhr.response[i].username;
+                    pLast.className = 'name__user';
                     // pLast.style.border = "1px solid #fff";
                     pLast.style.display = 'inline-block';
                     pLast.style.verticalAlign = 'top';
@@ -107,12 +129,13 @@ if (document.location.pathname == '/index.html') {
                     pLast.style.fontFamily = 'Uchen';
                     block.append(pLast);
 
-                    // let tempBlock = document.createElement('div');
-                    // tempBlock.innerHTML = '';
-                    // tempBlock.style.marginBottom = '2%';
-                    // div__users__chat.append(tempBlock);
-                    allUsers++;
-                    // countUsers++;
+                    let j = i;
+                    // alert("start = " + mapUsers.get("start"));
+                    // alert("allUsers = " + mapUsers.get("allUsers"));
+
+
+                    mapUsers.set("allUsers", ++j);
+                    mapUsers.set("start", mapUsers.get("allUsers"));
                     ///////////////////////////////////////////////////////////////////////////
                     if (xhr.response[i].user_id == id) {
                         let pLast = document.createElement('p');
@@ -123,28 +146,54 @@ if (document.location.pathname == '/index.html') {
                         div__time.prepend("User: ");
                     }
                 }
-                if (!flagCheck) {
-                    document.cookie = "id_user=;max-age=-1";
-                    document.location.href = "login.html";
-                }
+                // mapUsers.set("countOnline",countOnline);
+                // if (!flagCheck) {
+                //     document.cookie = "id_user=;max-age=-1";
+                //     document.location.href = "login.html";
+                // }
+
+                // if (j != mapUsers.get("allUsers")) 
+                // { alert("flagtimer");
+                //     mapUsers.set("flagTime", 0);
+                // }
+
+                mapUsers.set("countOnline", countOnline);
+                mapUsers.set("startCountOnline", mapUsers.get("startCountOnline") + mapUsers.get("countOnline"));
+
+                let appOnline = document.getElementById('div__users__chat__online');
                 let pOnline = document.createElement('p');
-                pOnline.style.display = 'flex';
+                pOnline.className = 'pOnline';
                 pOnline.style.justifyContent = 'space-around';
                 pOnline.style.fontSize = '20px';
-                pOnline.innerHTML = 'Online: ' + countOnline;
-                div__users__chat__online.prepend(pOnline);
+                pOnline.style.display = 'flex';
+                pOnline.innerHTML = 'Online: ' + mapUsers.get("startCountOnline");
+                appOnline.prepend(pOnline);
 
+                let appAllOnline = document.getElementById('div__users__chat__online');
                 let pAllUsers = document.createElement('p');
-                pAllUsers.style.display = 'flex';
                 pAllUsers.style.justifyContent = 'space-around';
                 pAllUsers.style.fontSize = '26px';
-                pAllUsers.innerHTML = 'All users: ' + allUsers;
-                div__users__chat__online.prepend(pAllUsers);
+                pAllUsers.style.display = 'flex';
+                pAllUsers.innerHTML = 'All users: ' + mapUsers.get("allUsers");
+                appAllOnline.prepend(pAllUsers);
+
+                if (mapUsers.get("flagTime")) {
+                    appOnline.removeChild(pOnline);
+                    appAllOnline.removeChild(pAllUsers);
+                }
+
+                mapUsers.set("flagTime", 1);
             }
+            createNewChat();
+
         }
         xhr.onerror = () => alert("Error!");
 
         xhr.send();
+        // //или
+        // someElem.innerText = '';
+        // //или
+        // someElem.textContent= '';
     }
 
 
@@ -189,10 +238,19 @@ if (document.location.pathname == '/index.html') {
         xhr.setRequestHeader('Content-Type', 'application/json');
 
         xhr.send(JSON.stringify({ datetime: date, message: messUser, username: userName }));
-        alert(userName + " you send message!");
-        xhr.onload = () => alert(xhr.response);
+        // alert(userName + " you send message!");
+        xhr.onload = function () {
+            // alert(xhr.response);
+        };
 
-        // document.getElementsByClassName('.div__enter__message').value='';
+        var messageField = document.getElementById('messages');
+        messageField.value = '';
+        clickSendMessage.style.background = 'rgba(194, 231, 245, 0.5)';
+        window.setTimeout(function () { clickSendMessage.style.background = 'rgba(50, 50, 50, 0.6)' }, 100);
+        countCE.innerHTML = 0 + " characters entered;";
+        countLE.innerHTML = 0 + " letters endered;";
+        countWC.innerHTML = 0 + " whitespace characters entered;";
+        countPM.innerHTML = 0 + " punctuation marks entered.";
 
         // document.location.href = "index.html";
     }
@@ -226,7 +284,7 @@ if (document.location.pathname == '/index.html') {
         }
     }
     function make_safe(input) {
-        return input.replace("&", "&amp;").replace(/(<?)([^<>]*)(>?)/g, (a, b, c, d) => {
+        return input.toString().replace("&", "&amp;").replace(/(<?)([^<>]*)(>?)/g, (a, b, c, d) => {
             if ((b + c + d).toLowerCase() === "<br>") return "<br>";
 
             if (b === "<") b = "&lt;";
@@ -259,7 +317,6 @@ if (document.location.pathname == '/index.html') {
                     let hour = date.getHours();
                     let min = date.getMinutes();
                     if (xhr.response[i].username == user) {
-
                         let divMessageMe = document.createElement('code');
                         divMessageMe.innerHTML = make_safe(xhr.response[i].message);
                         divMessageMe.style.border = '1px solid #fff';
@@ -333,23 +390,109 @@ if (document.location.pathname == '/index.html') {
                     }
                     countMessage++;
 
-                }
+                };
             }
         }
         xhr.onerror = () => alert("Error!");
 
         xhr.send();
     }
-
-    function BoldText() {
-
+    function buttonStyleMessage() {
+        // var mF1 = document.getElementById('messages');
+        var mF = document.getElementById('messages');
+        if (mF) {
+            // window.onload = function () {
+            clickBoldText.addEventListener("click", function () {
+                // Toggle the bold class on the text element
+                mF.classList.toggle("bold");
+                clickBoldText.style.background = 'rgba(194, 231, 245, 0.5)';
+                window.setTimeout(function () { clickBoldText.style.background = 'rgba(50, 50, 50, 0.6)' }, 100);
+            });
+            clickItalicText.addEventListener("click", function () {
+                // Toggle the bold class on the text element
+                mF.classList.toggle("italic");
+                clickItalicText.style.background = 'rgba(194, 231, 245, 0.5)';
+                window.setTimeout(function () { clickItalicText.style.background = 'rgba(50, 50, 50, 0.6)' }, 100);
+            });
+            clickUnderlineText.addEventListener("click", function () {
+                // Toggle the bold class on the text element
+                mF.classList.toggle("underline");
+                clickUnderlineText.style.background = 'rgba(194, 231, 245, 0.5)';
+                window.setTimeout(function () { clickUnderlineText.style.background = 'rgba(50, 50, 50, 0.6)' }, 100);
+            });
+        }
     }
 
-    usersInChat("GET", "https://studentschat.herokuapp.com/users");
-    // setInterval(function(){usersInChat("GET", "https://studentschat.herokuapp.com/users")},1000);
+    fieldMessage.oninput = function () {
+        var x = fieldMessage.value;
+        // alert(typeof x);
+        let countAll = 0, countWhitespace = 0, countLetters = 0, countPunc = 0;
+        for (let i = 0; i < x.length; i++) {
+            countAll++;
+            if (x[i] == " " || x[i] == "\t" || x[i] == "\n") countWhitespace++;
+            if (/^[a-zA-ZА-я]+$/.test(x[i])) countLetters++;
+            if (/^[.,\/#!$%\^&\*;:{}=\-_`~()]+$/.test(x[i])) countPunc++;
+        }
+        countCE.innerHTML = countAll + " characters entered;";
+        countLE.innerHTML = countLetters + " letters endered;";
+        countWC.innerHTML = countWhitespace + " whitespace characters entered;";
+        countPM.innerHTML = countPunc + " punctuation marks entered.";
+    }
+
+    function createNewChat() {
+        const clickOnUser = document.querySelectorAll('.clickOnUser');
+        let pBlock = document.createElement('p');
+        pBlock.className = 'p__tabs__private';
+        pBlock.style.border = '3px solid #fff';
+        pBlock.style.borderBottom = 'none';
+        pBlock.style.display = 'inline-block';
+        pBlock.style.width = '15%';
+        pBlock.style.textAlign = 'center';
+        pBlock.style.background = 'rgba(50, 50, 50, 0.6)';
+        for (let i = 0; i < clickOnUser.length; i++) {
+            clickOnUser[i].onclick = function () {
+                const p = document.createElement('button');
+                pBlock.innerHTML = 'Chat with ' + clickOnUser[i].querySelector('.name__user').innerHTML;
+                divChats.appendChild(pBlock);
+                p.className = 'close';
+                p.style.color = 'red';
+                p.style.display = 'inline-block';
+                p.style.marginLeft = '5%';
+                p.style.background = 'grey';
+                p.style.fontWeight = 'bold';
+                p.innerHTML = 'X';
+                pBlock.appendChild(p);
+                // createNewWindowForChat();
+                closeChat();
+            }
+        }
+    }
+
+    // function createNewWindowForChat(){
+    //     const newWindow = document.createElement('div');
+    //     newWindow.style.display = 'block';
+    //     newWindow.innerHTML = "qwertyuio";
+    //     divWindowUsers.appendChild(newWindow);
+    // }
+
+    function closeChat()
+    {
+        const pRemoveChat = document.querySelectorAll('.close');
+            for(let i = 0; i < pRemoveChat.length; i++){
+                  pRemoveChat[i].onclick = function(){
+                        pRemoveChat[i].parentNode.parentNode.removeChild(pRemoveChat[i].parentNode);
+                  }
+            }
+    }
+    buttonStyleMessage();
+    setInterval(function () {
+        usersInChat("GET", "https://studentschat.herokuapp.com/users")
+    }, 500);
     setInterval(function () { isShowMessage("GET", "https://studentschat.herokuapp.com/messages") }, 1000);
-    // setInterval(function(){isShowCurrentDate()},5000);
     isShowCurrentDate();
-    // statusOk();
+
+    // window.setTimeout(function () {
+    //     window.location.reload();
+    // }, 300000);
 }
 
