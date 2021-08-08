@@ -17,7 +17,6 @@ if (document.location.pathname == '/index.html') {
     const clickBoldText = document.querySelector('.button__message__bold');
     const clickItalicText = document.querySelector('.button__message__italic');
     const clickUnderlineText = document.querySelector('.button__message__underline');
-    let text_style = '';
     function get_cookie(cookie_name) {
         let results = document.cookie.match('(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
         if (results)
@@ -67,22 +66,17 @@ if (document.location.pathname == '/index.html') {
                     block.style.padding = '2%';
                     block.style.margin = '2%';
                     block.style.background = 'rgba(50, 50, 50, 0.8)';
-                    // block.style.display = 'flex';
-                    // block.style.alignItems = 'center';
                     block.style.borderRadius = '15px 15px 15px 15px';
                     div__users__chat.append(block);
 
                     let blockAvatar = document.createElement('div');
                     blockAvatar.style.display = 'initial';
-                    // blockAvatar.style.alignItems = 'flex-end';
-                    // blockAvatar.style.border = "1px solid #fff";
                     block.append(blockAvatar);
 
                     // отображаем аватар пользователя
                     let img = document.createElement('img');
                     img.src = avatars[`${idAvatar}`];
                     img.style.width = '25%';
-                    // img.style.height = '20%';
                     img.style.borderRadius = '50%';
                     blockAvatar.append(img);
 
@@ -222,7 +216,6 @@ if (document.location.pathname == '/index.html') {
         const userName = user;
 
         const messUser = document.getElementById('messages').value;
-        // alert(messUser);
 
         // текущая дата
         let date = new Date().toISOString();
