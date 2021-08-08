@@ -190,10 +190,6 @@ if (document.location.pathname == '/index.html') {
         xhr.onerror = () => alert("Error!");
 
         xhr.send();
-        // //или
-        // someElem.innerText = '';
-        // //или
-        // someElem.textContent= '';
     }
 
 
